@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    body{
+        background-color: whitesmoke;
+    }
+    .table-bordered td, .table-bordered th  {
+        background-color: white;
+    }
+</style>
+<div class="text-center mx-auto">
+    <div class="form" style="padding: 20px 20px 20px 20px;">
+        <form action="{% url 'populate' %}" method="post" class="text-center mx-auto"
+            style="border-radius: 20px; border: 2px solid rgb(212, 212, 212); padding: 20px 20px 0px 20px; margin-top: 10px;">
+            <h3>Populate Datas</h3>
+            {% csrf_token %}
+            <br>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <input type="text" class="form-control" disabled value="Source Name : Inciweb">
+                </div>
+                <div class="col-md-3 form-group">
+                    <input required name="latitude" type="text" class="form-control" placeholder="Latitude">
+                </div>
+                <div class="col-md-3 form-group">
+                    <input required name="longitude" type="text" class="form-control" placeholder="Longitude">
+                </div>
+                <div class="col-md-3 form-group">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+        <br><br>
+        <a href="{% url 'delete_all' %}">Delete All Current Records</a>
+    </div>
+</div>
+{% endblock %}

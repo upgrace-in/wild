@@ -1,0 +1,5 @@
+ssh root@144.126.145.207
+VN6/6T%d+J3
+
+scp -r metafuturetrade.zip root@167.86.127.254:/opt/                    
+scp -r metafuturetrade.zip root@144.126.145.207:/opt/                    
