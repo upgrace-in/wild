@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import JsonResponse
 from httplib2 import Http
-from fire_alert_app.models import Data
+from torch import true_divide
+from fire_alert_app.models import Data, red_flag_data_model
 import uuid
 import csv
 import os
@@ -19,6 +20,35 @@ path = os.path.abspath('.')
 
 def index(request):
     return render(request, 'index.html')
+
+
+def put_red_label_data(arr):
+    try:
+        if(arr == 'delete_all'):
+            red_flag_data_model.objects.all().delete()
+            return True
+        else:
+            for i in arr:
+                m = red_flag_data_model.objects.create(
+                    desc=i['summary'],
+                    polygon=i['cap:geocode']['value'][1],
+                    date_time=i['cap:effective']
+                )
+                m.save()
+            return True
+    except EOFError as e:
+        print(e)
+        return False
+
+
+@csrf_exempt
+def get_all_red_object(request):
+    if request.method == 'POST':
+        m = red_flag_data_model.objects.all()
+        s = serializers.serialize("json", m)
+        return HttpResponse(s)
+    else:
+        return HttpResponse("Method Not Allowed !")
 
 
 def change_admin_pw(request):
@@ -199,22 +229,26 @@ def updated_logs(msg):
 
 
 def save_it(i):
-    m = Data.objects.create(
-        data_source_name=i[0],
-        data_source_type=i[1],
-        reference_id=i[2],
-        latitude=i[3],
-        longitude=i[4],
-        time_date=i[5],
-        name=i[6],
-        acreage=i[7],
-        percent=i[8],
-        cause=i[9],
-        description=i[10],
-        primary=i[11],
-        perimeter=i[12]
-    )
-    m.save()
+    try:
+        m = Data.objects.create(
+            data_source_name=i[0],
+            data_source_type=i[1],
+            reference_id=i[2],
+            latitude=i[3],
+            longitude=i[4],
+            time_date=i[5],
+            name=i[6],
+            acreage=i[7],
+            percent=i[8],
+            cause=i[9],
+            description=i[10],
+            primary=i[11],
+            perimeter=i[12]
+        )
+        m.save()
+        return True
+    except EOFError:
+        return False
 
 
 @csrf_exempt

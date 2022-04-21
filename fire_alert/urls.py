@@ -5,8 +5,11 @@ from fire_alert_app import views
 from scheduler import execute
 
 urlpatterns = [
-    path("change_password/", views.change_admin_pw, name='change_admin_pw'),
+    # APIs
     path('get_all_object/', views.get_all_object, name="get_all_object"),
+    path('get_all_red_flag_object/', views.get_all_red_object, name="get_all_red_object"),    
+    
+    path("change_password/", views.change_admin_pw, name='change_admin_pw'),
     path('get_object/', views.get_object, name="get_object"),
     path('delete_all/', views.delete_all, name="delete_all"),
     path('delete_all_objs/', views.delete_all_objs, name="delete_all_objs"),

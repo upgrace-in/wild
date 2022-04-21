@@ -1,5 +1,4 @@
 ssh root@144.126.145.207
-VN6/6T%d+J3
+TT!+ov#R75eu6x
 
-scp -r metafuturetrade.zip root@167.86.127.254:/opt/                    
-scp -r metafuturetrade.zip root@144.126.145.207:/opt/                    
+git push https://upgrace-in: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@github.com/upgrace-in/wild.git master

@@ -18,3 +18,8 @@ class Data(models.Model):
 
     def __str__(self):
         return self.data_source_name
+
+class red_flag_data_model(models.Model):
+    desc = models.CharField(max_length=2000, null=True, blank=True)
+    polygon = models.CharField(max_length=2000, null=True, blank=True)
+    date_time = models.CharField(max_length=2000)
