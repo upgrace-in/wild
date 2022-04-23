@@ -221,10 +221,10 @@ def alert(request):
         return HttpResponse("Method Not Allowed")
 
 
-def updated_logs(msg):
-    with open("logs", "a") as f:
-        f.write(str(msg))
-        f.close()
+# def updated_logs(msg):
+#     with open("logs", "a") as f:
+#         f.write(str(msg))
+#         f.close()
 
 
 def save_it(i):

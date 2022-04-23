@@ -1,6 +1,10 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 import automate
-# automate.start()
-scheduler = BackgroundScheduler()
-scheduler.add_job(automate.start, 'interval', minutes=30)
-scheduler.start()
+from fire_alert import settings
+
+if settings.DEBUG == True:
+    automate.start()
+else:
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(automate.start, 'interval', minutes=30)
+    scheduler.start()
