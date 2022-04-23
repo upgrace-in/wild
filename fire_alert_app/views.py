@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import JsonResponse
 from httplib2 import Http
-from torch import true_divide
 from fire_alert_app.models import Data, red_flag_data_model
 import uuid
 import csv
