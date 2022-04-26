@@ -21,6 +21,12 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
 path = os.path.abspath('.')
 filtered_data = []
 
+def check_if_duplicate(i):
+    for h in filtered_data:
+        if i['cap:geocode']['value'][1] == h['cap:geocode']['value'][1]:
+            return True
+    return False
+
 def init():
     d_url = "https://alerts.weather.gov/cap/us.php?x=0"
     try:
@@ -28,7 +34,9 @@ def init():
         data = xmltodict.parse(r.content)
         for i in data['feed']['entry']:
             if 'Red Flag Warning' in i['cap:event']:
-                filtered_data.append(i)
+                c = check_if_duplicate(i)
+                if c != True:
+                    filtered_data.append(i)
         put_red_label_data(filtered_data)
         return True
     except EOFError:
